@@ -40,3 +40,4 @@ target
 .settings
 .project
 .classpath
+src/main/java/com/acme/xgpa/services/Constants.java
