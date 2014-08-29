@@ -1,0 +1,45 @@
+.sidebox.ng-hide-remove {
+    -webkit-animation: bounceInRight 1s;
+    -moz-animation: bounceInRight 1s;
+    -ms-animation: bounceInRight 1s;
+	animation: bounceInRight 1s;
+	display:block!important;
+}
+
+.sidebox.ng-hide-add {
+    -webkit-animation: fadeOutRight 1s;
+    -moz-animation: fadeOutRight 1s;
+    -ms-animation: fadeOutRight 1s;
+	animation: fadeOutRight 1s;
+	display:block!important;
+}
+
+.showHide.ng-hide-add {
+    -webkit-animation: bounce 1s;
+    -moz-animation: bounce 1s;
+    -ms-animation: bounce 1s;
+	animation: bounce 1s;
+	display:block!important;
+}
+
+.showHide.ng-hide-remove {
+    -webkit-animation: flash 1s;
+    -moz-animation: flash 1s;
+    -ms-animation: flash 1s;
+	animation: flash 1s;
+	display:block!important;
+}
+
+.showHide.ng-enter {
+    -webkit-animation: fadeInLeft 1s;
+    -moz-animation: fadeInLeft 1s;
+    -ms-animation: fadeInLeft 1s;
+	animation: fadeInLeft 1s;
+}
+
+.showHide.ng-leave {
+    -webkit-animation: fadeOut 1s;
+    -moz-animation: fadeOut 1s;
+    -ms-animation: fadeOut 1s;
+	animation: fadeOut 1s;
+}

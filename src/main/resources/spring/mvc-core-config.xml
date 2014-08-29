@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<import resource="mvc-view-config.xml" />
+
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+<!-- 		<property name="traversableResolver"> -->
+<!-- 			<bean class="com.arca.arca4u.web.validation.DefaultTraversableResolver"></bean> -->
+<!-- 		</property> -->
+	</bean>
+
+	<context:component-scan base-package="com.acme" />
+
+	<bean id="jsonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="objectMapper">
+			<bean
+				class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+				<property name="simpleDateFormat" value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" />
+				<property name="featuresToDisable"
+					value="#{T(com.fasterxml.jackson.databind.DeserializationFeature).FAIL_ON_UNKNOWN_PROPERTIES}" />
+			</bean>
+		</property>
+	</bean>
+
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters register-defaults="true">
+			<ref bean="jsonMessageConverter" />
+		</mvc:message-converters>
+<!-- 		<mvc:argument-resolvers> -->
+<!-- 			<bean -->
+<!-- 				class="com.arca.arca4u.web.handlers.JsonAnnotatedHandlerMethodArgumentResolver" /> -->
+<!-- 		</mvc:argument-resolvers> -->
+	</mvc:annotation-driven>
+
+	<!-- all resources inside folder src/main/webapp/resources are mapped so 
+		they can be refered to inside JSP files (see header.jsp for more details) -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/pages/**/*.js" location="/WEB-INF/jsp/pages/"
+		order="-1" />
+
+	<!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies 
+		(Bootstrap, jQuery...) -->
+	<mvc:resources mapping="/webjars/**"
+		location="classpath:/META-INF/resources/webjars/" />
+
+	<mvc:view-controller path="/" view-name="home" />
+
+<!-- 	<bean class="com.arca.arca4u.web.handlers.ServerExceptionResolver"> -->
+<!-- 		<property name="jsonMessageConverter" ref="jsonMessageConverter" /> -->
+<!-- 		<property name="messageSource" ref="messageSource" /> -->
+<!-- 	</bean> -->
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="messages/messages" />
+
+</beans>
